@@ -1,20 +1,20 @@
 from token_keys import key_telegram
 import telebot
 import pytube
-import json
 import os
 
 bot = telebot.TeleBot(key_telegram)
 video = None
 
+
 def create_keyboard(yt):
     buttons = []
-    keyboard = telebot.types.InlineKeyboardMarkup (row_width=1)
-    i=0
-    for stream in yt.streams.filter (mime_type='video/mp4'):
-        buttons.append (telebot.types.InlineKeyboardButton(text=str(stream), callback_data=str(i)))
+    keyboard = telebot.types.InlineKeyboardMarkup(row_width=1)
+    i = 0
+    for stream in yt.streams.filter(mime_type='video/mp4'):
+        buttons.append(telebot.types.InlineKeyboardButton(text=str(stream), callback_data=str(i)))
         i += 1
-    keyboard.add (*buttons)
+    keyboard.add(*buttons)
     return keyboard
 
 
@@ -40,16 +40,16 @@ def get_text_messages(message):
         keyboard = create_keyboard(yt)
         global video
         video = yt
-        bot.send_message(message.from_user.id,'Выберете формат для загрузки', reply_markup = keyboard)
+        bot.send_message(message.from_user.id, 'Выберете формат для загрузки', reply_markup=keyboard)
+
 
 @bot.callback_query_handler(func=lambda x: True)
 def callback_handler(callback_query):
     global video
-    bot.send_message (callback_query.from_user.id, "Подождите, началась загрузка...")
-    #video.streams[int(callback_query.data)].download()
-    #bot.send_message (callback_query.from_user.id, "Фаил загружен на сервер")
-    video = open(video.streams[int(callback_query.data)].download(filename='{}'.format(callback_query.from_user.id)), 'rb')
-    bot.send_video (callback_query.from_user.id, video)
+    bot.send_message(callback_query.from_user.id, "Подождите, началась загрузка...")
+    video = open(video.streams[int(callback_query.data)].download(
+                 filename='{}'.format(callback_query.from_user.id)), 'rb')
+    bot.send_video(callback_query.from_user.id, video)
     video.close()
     os.remove('{}.mp4'.format(callback_query.from_user.id))
 
