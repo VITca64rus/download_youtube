@@ -40,7 +40,7 @@ def get_text_messages(message):
         keyboard = create_keyboard(yt)
         global video
         video = yt
-        bot.send_message(message.from_user.id, 'Выберете формат для загрузки', reply_markup=keyboard)
+        bot.send_message(message.from_user.id, 'Выберите формат для загрузки', reply_markup=keyboard)
 
 
 @bot.callback_query_handler(func=lambda x: True)
