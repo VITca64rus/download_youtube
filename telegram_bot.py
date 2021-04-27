@@ -11,8 +11,12 @@ def create_keyboard(yt):
     buttons = []
     keyboard = telebot.types.InlineKeyboardMarkup(row_width=1)
     i = 0
-    for stream in yt.streams.filter(mime_type='video/mp4'):
-        buttons.append(telebot.types.InlineKeyboardButton(text=str(stream), callback_data=str(i)))
+    for stream in yt.streams.filter(progressive='True'):
+        typ = str(stream).split(' ')[2].split('=')[1][1:-1]
+        quality = str(stream).split(' ')[3].split('=')[1][1:-1]
+
+        text_but = 'Тип: {}, Качество: {}'.format(typ, quality)
+        buttons.append(telebot.types.InlineKeyboardButton(text=text_but, callback_data=str(i)))
         i += 1
     keyboard.add(*buttons)
     return keyboard
@@ -47,7 +51,7 @@ def get_text_messages(message):
 def callback_handler(callback_query):
     global video
     bot.send_message(callback_query.from_user.id, "Подождите, началась загрузка...")
-    video = open(video.streams[int(callback_query.data)].download(
+    video = open(video.streams.filter(progressive='True')[int(callback_query.data)].download(
                  filename='{}'.format(callback_query.from_user.id)), 'rb')
     bot.send_video(callback_query.from_user.id, video)
     video.close()
