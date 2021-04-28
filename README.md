@@ -1,4 +1,4 @@
-# download_youtube
+# Download video from YouTube
 Telegram bot for downloading video from YouTube
 
 Use libraries: telebot, pytube
