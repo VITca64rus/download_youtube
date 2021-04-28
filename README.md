@@ -31,7 +31,7 @@ Once you select the format the bot will start downloading the video and then sen
 </p>
 
 <h2>Project setup</h2>
-```php
-//php code 
-$foo = new BarClass();
-```
+<code>git clone https://github.com/VITca64rus/download_youtube</code>
+<code>pip install -r requirements.txt</code>
+<code>python telegram_bot.py</code>
+
