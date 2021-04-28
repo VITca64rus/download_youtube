@@ -24,3 +24,14 @@ Once you select the format the bot will start downloading the video and then sen
 </p>
 
 <h2>About the project</h2>
+<p>
+  - The bot is written in Python 3.9.4</br>
+  - To interact with the Telegram API, I use the pyTelegramBotAPI library</br>
+  - To download videos from YouTube, I use the pytube library</br>
+</p>
+
+<h2>Project setup</h2>
+```php
+//php code 
+$foo = new BarClass();
+```
