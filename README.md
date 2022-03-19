@@ -33,6 +33,5 @@ Once you select the format the bot will start downloading the video and then sen
 <h2>Project setup</h2>
 <code>git clone https://github.com/VITca64rus/download_youtube</code></br>
 <code>pip install -r requirements.txt</code></br>
-Then add file <code>token_keys.py</code> with content <code>key_telegram = 'YOUR_TELEGRAM_BOT_TOKEN'</code></br>
 <code>python telegram_bot.py</code></br>
 

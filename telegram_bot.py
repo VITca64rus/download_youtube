@@ -1,9 +1,8 @@
-from token_keys import key_telegram
 import telebot
 import pytube
 import os
 
-bot = telebot.TeleBot(key_telegram)
+bot = telebot.TeleBot(1767984719:AAExB36Biu1bfL6h8G_MxzOZ789tiuUg648)
 video = None
 
 
