@@ -2,7 +2,7 @@ import telebot
 import pytube
 import os
 
-bot = telebot.TeleBot('1767984719:AAExB36Biu1bfL6h8G_MxzOZ789tiuUg648')
+bot = telebot.TeleBot('YOUR_TOKEN')
 video = None
 
 
@@ -39,11 +39,18 @@ def get_text_messages(message):
         yt = pytube.YouTube(message.text)
     except pytube.exceptions.RegexMatchError:
         bot.send_message(message.from_user.id, "Не могу скачать данный фаил. Проверьте ссылку")
-    if yt is not None:
-        keyboard = create_keyboard(yt)
-        global video
-        video = yt
-        bot.send_message(message.from_user.id, 'Выберите формат для загрузки', reply_markup=keyboard)
+    filters = yt.streams.filter(progressive=True, file_extension='mp4')
+
+    # download the highest quality video
+    filters.get_highest_resolution().download(filename='name.mp4')
+    bot.send_video(callback_query.from_user.id, video)
+    video.close()
+    os.remove('name.mp4')
+    # if yt is not None:
+    #     keyboard = create_keyboard(yt)
+    #     global video
+    #     video = yt
+    #     bot.send_message(message.from_user.id, 'Выберите формат для загрузки', reply_markup=keyboard)
 
 
 @bot.callback_query_handler(func=lambda x: True)
